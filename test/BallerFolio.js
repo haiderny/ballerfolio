@@ -9,21 +9,14 @@ contract('BallerFolio', function(accounts) {
     var account5 = accounts[4];
     var account6 = accounts[5];
 
-    var name1 = "timtime";
-    var name2 = "jbyo";
-    var weiToExtend = 5;
-    var weiToCreate = 3;
+    var name1 = "jaredb";
 
-
-
-    it("creates a new instance of Foundation and gets weiToExtend", function() {
-        var extend=5000;
-        var ns;
-        return Foundation.new(name2, extend, weiToCreate).then(function(instance) {
+    it("creates a new instance and gets eth balance ", function() {
+        return BallerFolio.new().then(function(instance) {
             u = instance;
-            return u.getWeiToExtend.call();
-        }).then(function(wei) {
-            assert.equal(wei.toNumber(), extend, extend + " doesn't equal " + wei.toNumber());
+            return u.getIdsEth.call(name1);
+        }).then(function(balance) {
+            console.log(name1 + "'s balance = " + web3.fromWei(balance.toNumber()));
         });
     });
 });

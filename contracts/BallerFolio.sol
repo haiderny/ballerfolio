@@ -17,19 +17,32 @@ contract Foundation {
 
 contract BallerFolio {
 
-  address foundationAddress = 0x41176519dc8f99dd1ed3eaaf9d250972ca5f766b;
+  address foundationAddress = 0x223CaeB40d6caceB54b67D015d92cD4fd56D75c6;
+
+  function BallerFolio() {
+  }
 
   //////////////////////////////////////////////
   //////////FOUNDATION FUNCTIONS ///////////////
   //////////////////////////////////////////////
 
-  //use this to display existing balances that haven't been transfered over
+  function getAddrIndex(bytes32 foundId, uint index) constant returns (address) {
+    Foundation f = Foundation(foundationAddress);
+    return f.getAddrIndex(foundId, index);
+  }
+
+  function getAddrLength(bytes32 foundId) constant returns (uint) {
+    Foundation f = Foundation(foundationAddress);
+    uint addrLength = f.getAddrLength(foundId);
+    return addrLength;
+  }
+
+  address[] allAddr;
   function getFoundAddresses(bytes32 foundId) constant returns (address[]) {
     Foundation f = Foundation(foundationAddress);
     uint addrLength = f.getAddrLength(foundId);
-    address[] storage allAddr;
     for (uint i=0; i < addrLength; i++) {
-      allAddr.push(f.getAddrIndex(foundId, i));
+      allAddr.push(getAddrIndex(foundId, i));
     }
     return allAddr;
   }
@@ -55,11 +68,11 @@ contract BallerFolio {
   ///////////////////////////////////////
 
   function getOneAddrBal(address _addr) constant returns (uint) {
-    return _addr.balance
+    return _addr.balance;
   }
 
-  function getIdsEth(bytes32 foundId) constant returns (uint) {
-    address[] allAddr = getFoundAddresses(foundId);
+    function getIdsEth(bytes32 foundId) constant returns (uint) {
+    address[] memory allAddr = getFoundAddresses(foundId);
     uint addrLength = allAddr.length;
     uint totalBalance;
     for (uint i=0; i < addrLength; i++) {
