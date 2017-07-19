@@ -89,12 +89,18 @@ contract BallerFolio {
     return fBalance;
   }
 
+
+  ///broken
+  address[] allAddrId;
   function getIdTokenBalance(bytes32 foundId, bytes32 tokenName) constant returns (uint) {
-    address[] memory allAddr = getFoundAddresses(foundId);
-    uint addrLength = allAddr.length;
+    allAddrId = getFoundAddresses(foundId);
+    uint addrLength = allAddrId.length;
+    require(addrLength>0);
     uint totalBalance;
+    uint oneAddrBalance;
     for (uint i=0; i < addrLength; i++) {
-      totalBalance = totalBalance + tokenBalance(allAddr[i], tokenName);
+      oneAddrBalance=tokenBalance(allAddrId[i], tokenName);
+      totalBalance = totalBalance + oneAddrBalance;
     }
   }
 

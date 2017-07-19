@@ -44,19 +44,18 @@ contract('BallerFolio', function(accounts) {
         });
     });
 
-    it("retreives a balance from dogtoken ", function() {
+
+
+    it("sets a cattoken address, retreives a balance from cattoken ", function() {
         return BallerFolio.new({from: account1}).then(function(instance) {
             u = instance;
-            return u.editTokenAddress("dog", dogTokenAddr);
+            return u.editTokenAddress("cat", catTokenAddr);
         }).then(function(tx) {
-            return u.getTokenAddress("dog");
-        }).then(function(address) {
-            //return u.getIdTokenBalance("jaredb", "dog");
-            return u.tokenBalance(account1, "dog");
+            return u.getTokenAddress("cat");
+        }).then(function(tx) {
+            return u.tokenBalance(account4, "cat");
         }).then(function(balance) {
             console.log(balance.toNumber());
-
-//            assert.equal(dogTokenAddr.toLowerCase(), address.toString(), "addresses not equal");
         });
     });
 
